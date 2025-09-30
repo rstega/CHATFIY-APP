@@ -8,9 +8,9 @@ import { fileURLToPath } from 'url';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT =  4000;
 
-// Fix __dirname for ES modules (works on Windows, Linux, macOS)
+// Fix __dirname for ES modules (Linux & macOS)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -18,11 +18,11 @@ const __dirname = path.dirname(__filename);
 app.use('/auth', authRouter);
 app.use('/message', messeagaeRouter);
 
-// Serve static frontend (dist folder)
+// Serve static assets from frontend/dist (one directory up)
 const frontendPath = path.resolve(__dirname, '../frontend/dist');
 app.use(express.static(frontendPath));
 
-// Catch-all route for SPA (React, Vue, etc.)
+// Catch-all route for client-side routing (React/Vue/SPA)
 app.get('*', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
